@@ -12,19 +12,23 @@ source:
   sha256: "{{ sha256 }}"
 
 build:
-  noarch: python
   number: 0
   skip: True # [py<38]
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  script: "{{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv"
 
 requirements:
   host:
     - python
     - pip
+    - wheel
   run:
     - python
 
 test:
+  requires:
+    - pip
+  commands:
+    - pip check
   imports:
     - pyasn1
     - pyasn1.codec
@@ -35,16 +39,15 @@ test:
     - pyasn1.type
 
 about:
-  home: https://github.com/etingof/pyasn1
-  license: BSD 2-Clause
+  home: https://github.com/pyasn1/pyasn1
+  license: BSD-2-Clause
   license_file: LICENSE.rst
   license_family: BSD
   summary: 'ASN.1 types and codecs'
   description: |
     Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)
-  doc_url: http://pyasn1.sourceforge.net/
-  doc_source_url: https://github.com/etingof/pyasn1/blob/master/doc/source/contents.rst
-  dev_url: https://github.com/etingof/pyasn1
+  doc_url: https://pyasn1.readthedocs.io
+  dev_url: https://github.com/pyasn1/pyasn1
 
 extra:
   recipe-maintainers:
