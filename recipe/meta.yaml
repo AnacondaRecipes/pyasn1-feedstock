@@ -4,22 +4,23 @@
 
 
 package:
-  name: "{{ name|lower }}"
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/p/pyasn1/pyasn1-{{ version }}.tar.gz
-  sha256: "{{ sha256 }}"
+  sha256: {{ sha256 }}
 
 build:
   number: 0
   skip: True # [py<38]
-  script: "{{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vvv"
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
     - wheel
   run:
     - python
