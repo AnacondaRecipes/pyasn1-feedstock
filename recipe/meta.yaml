@@ -1,26 +1,35 @@
-{% set version = "0.4.8" %}
+{% set name = "pyasn1" %}
+{% set version = "0.6.1" %}
+{% set sha256 = "6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034" %}
+
 
 package:
-  name: pyasn1
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/p/pyasn1/pyasn1-{{ version }}.tar.gz
-  sha256: aef77c9fb94a3ac588e87841208bdec464471d9871bd5050a287cc9a475cd0ba
+  sha256: {{ sha256 }}
 
 build:
   number: 0
-  noarch: python
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  skip: True # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
   host:
     - python
     - pip
+    - setuptools
+    - wheel
   run:
     - python
 
 test:
+  requires:
+    - pip
+  commands:
+    - pip check
   imports:
     - pyasn1
     - pyasn1.codec
@@ -31,16 +40,15 @@ test:
     - pyasn1.type
 
 about:
-  home: https://github.com/etingof/pyasn1
-  license: BSD 2-Clause
+  home: https://github.com/pyasn1/pyasn1
+  license: BSD-2-Clause
   license_file: LICENSE.rst
   license_family: BSD
   summary: 'ASN.1 types and codecs'
   description: |
     Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)
-  doc_url: http://pyasn1.sourceforge.net/
-  doc_source_url: https://github.com/etingof/pyasn1/blob/master/doc/source/contents.rst
-  dev_url: https://github.com/etingof/pyasn1
+  doc_url: https://pyasn1.readthedocs.io
+  dev_url: https://github.com/pyasn1/pyasn1
 
 extra:
   recipe-maintainers:
