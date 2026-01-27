@@ -1,7 +1,6 @@
 {% set name = "pyasn1" %}
-{% set version = "0.6.1" %}
-{% set sha256 = "6f580d2bdd84365380830acf45550f2511469f673cb4a5ae3857a3170128b034" %}
-
+{% set version = "0.6.2" %}
+{% set sha256 = "9b59a2b25ba7e4f8197db7686c09fb33e658b98339fadb826e9512629017833b" %}
 
 package:
   name: {{ name|lower }}
@@ -13,7 +12,7 @@ source:
 
 build:
   number: 0
-  skip: True # [py<38]
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed -vv
 
 requirements:
@@ -21,7 +20,6 @@ requirements:
     - python
     - pip
     - setuptools
-    - wheel
   run:
     - python
 
@@ -44,7 +42,7 @@ about:
   license: BSD-2-Clause
   license_file: LICENSE.rst
   license_family: BSD
-  summary: 'ASN.1 types and codecs'
+  summary: ASN.1 types and codecs
   description: |
     Pure-Python implementation of ASN.1 types and DER/BER/CER codecs (X.208)
   doc_url: https://pyasn1.readthedocs.io
