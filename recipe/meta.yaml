@@ -1,14 +1,13 @@
 {% set name = "pyasn1" %}
 {% set version = "0.6.2" %}
-{% set sha256 = "9b59a2b25ba7e4f8197db7686c09fb33e658b98339fadb826e9512629017833b" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/p/pyasn1/pyasn1-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 9b59a2b25ba7e4f8197db7686c09fb33e658b98339fadb826e9512629017833b
 
 build:
   number: 0
@@ -20,14 +19,13 @@ requirements:
     - python
     - pip
     - setuptools
+    - wheel
   run:
     - python
 
 test:
-  requires:
-    - pip
-  commands:
-    - pip check
+  source_files:
+    - tests
   imports:
     - pyasn1
     - pyasn1.codec
@@ -36,6 +34,12 @@ test:
     - pyasn1.codec.der
     - pyasn1.compat
     - pyasn1.type
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - pytest -vv tests
 
 about:
   home: https://github.com/pyasn1/pyasn1
