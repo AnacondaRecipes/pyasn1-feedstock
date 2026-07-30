@@ -1,13 +1,17 @@
 {% set name = "pyasn1" %}
-{% set version = "0.6.3" %}
+{% set version = "0.6.4" %}
+{% set skip_tests = "" %}
+{% set skip_tests = '-k "not (BinaryFileTestCase or CompressedFilesTestCase)"' %}  # [win]
 
+# E PermissionError: [WinError 32] The process cannot access the file because it is
+# being used by another process: 'C:\\Users\\TAE497~1\\AppData\\Local\\Temp\\tmppd88ixif.zip'
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 697a8ecd6d98891189184ca1fa05d1bb00e2f84b5977c481452050549c8a72cf
+  sha256: 9c447d8431c947fe4c8febc4ed9e760bc29011a5b01e5c74b67025bd9fb8ce81
 
 build:
   number: 0
@@ -19,14 +23,8 @@ requirements:
     - python
     - pip
     - setuptools
-    - wheel
   run:
     - python
-
-{% set skip_tests = "" %}
-# E PermissionError: [WinError 32] The process cannot access the file because it is 
-# being used by another process: 'C:\\Users\\TAE497~1\\AppData\\Local\\Temp\\tmppd88ixif.zip'
-{% set skip_tests = '-k "not (BinaryFileTestCase or CompressedFilesTestCase)"' %}  # [win]
 
 test:
   source_files:
